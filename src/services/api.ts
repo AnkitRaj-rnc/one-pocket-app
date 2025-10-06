@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Expense, ExpenseFormData, Budget, BudgetFormData, MonthlySummary } from '../types';
 import { getTodayDateString } from '../utils/helpers';
 
@@ -146,10 +147,6 @@ export class ApiService {
     return response.json();
   }
 
-  private generateMongoId(): string {
-    // Simulate MongoDB ObjectId format (24 hex characters)
-    return Array(24).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-  }
 
   private getAuthToken(): string {
     // Get JWT token from localStorage

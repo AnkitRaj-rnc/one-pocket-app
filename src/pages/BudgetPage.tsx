@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { Budget, BudgetFormData, BudgetStatus, Expense, ExpenseReason } from '../types';
+import type { Budget, BudgetFormData, BudgetStatus, Expense } from '../types';
 import { EXPENSE_REASONS } from '../types';
 import { apiService } from '../services/api';
 import { formatCurrency } from '../utils/helpers';

@@ -1,4 +1,5 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import type { CategoryData } from '../utils/analytics';
 import { formatCurrency } from '../utils/helpers';
 import './ExpensePieChart.css';
@@ -33,7 +34,7 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
     return null;
   };
 
-  const renderLabel = (entry: CategoryData) => {
+  const renderLabel = (entry: any) => {
     if (entry.percentage < 5) return ''; // Hide labels for small slices
     return `${entry.percentage.toFixed(0)}%`;
   };
@@ -44,7 +45,7 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
-              data={data}
+              data={data as any}
               cx="50%"
               cy="50%"
               labelLine={false}
@@ -53,8 +54,8 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
               fill="#8884d8"
               dataKey="amount"
             >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
+              {data.map((entry) => (
+                <Cell key={`cell-${entry.category}`} fill={entry.color} />
               ))}
             </Pie>
             <Tooltip content={customTooltip} />
@@ -63,7 +64,7 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
       </div>
 
       <div className="chart-legend">
-        {data.map((entry, index) => (
+        {data.map((entry) => (
           <div key={entry.category} className="legend-item">
             <div className="legend-header">
               <div className="legend-title-section">

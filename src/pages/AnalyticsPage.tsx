@@ -1,6 +1,6 @@
 import type { Expense } from '../types';
-import { getCategoryAnalytics, getTotalSpending } from '../utils/analytics';
-import { formatCurrency } from '../utils/helpers';
+import { getCategoryAnalytics } from '../utils/analytics';
+// import { formatCurrency } from '../utils/helpers';
 import ExpensePieChart from '../components/ExpensePieChart';
 import './AnalyticsPage.css';
 
@@ -10,7 +10,6 @@ interface AnalyticsPageProps {
 
 export default function AnalyticsPage({ expenses }: AnalyticsPageProps) {
   const categoryData = getCategoryAnalytics(expenses);
-  const totalSpending = getTotalSpending(expenses);
 
   // Calculate spending by payment method (excluding reimbursable)
   const upiSpending = expenses
