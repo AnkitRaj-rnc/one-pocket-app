@@ -1,0 +1,187 @@
+.pie-chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 1rem;
+}
+
+.pie-chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #6b7280;
+}
+
+.empty-chart-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.pie-chart-empty p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.chart-tooltip {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip-label {
+  margin: 0 0 0.25rem 0;
+  font-weight: 600;
+}
+
+.tooltip-amount {
+  margin: 0 0 0.25rem 0;
+  color: #fbbf24;
+}
+
+.tooltip-percentage {
+  margin: 0;
+  color: #9ca3af;
+}
+
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  border: 1px solid #e5e7eb;
+}
+
+.legend-item:hover {
+  background: #f9fafb;
+}
+
+.legend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.legend-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.legend-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-text {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.legend-count {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-left: 1.25rem;
+}
+
+.legend-amount {
+  font-size: 0.875rem;
+  color: #1f2937;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+  font-weight: 600;
+}
+
+.legend-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.legend-progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  flex-shrink: 0;
+}
+
+.legend-percentage {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 600;
+  min-width: 40px;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .pie-chart-container {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .chart-wrapper {
+    height: 250px;
+  }
+
+  .pie-chart-empty {
+    height: 250px;
+  }
+
+  .empty-chart-icon {
+    font-size: 2.5rem;
+  }
+
+  .legend-item {
+    padding: 0.625rem;
+  }
+
+  .legend-text {
+    font-size: 0.8125rem;
+  }
+
+  .legend-count {
+    font-size: 0.6875rem;
+  }
+
+  .legend-amount {
+    font-size: 0.8125rem;
+  }
+
+  .legend-percentage {
+    font-size: 0.6875rem;
+    min-width: 35px;
+  }
+
+  .legend-count {
+    margin-left: 1rem;
+  }
+}

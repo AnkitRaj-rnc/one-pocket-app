@@ -1,0 +1,191 @@
+.recent-transactions {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.recent-header h3 {
+  color: #1f2937;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.view-all-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.view-all-link:hover {
+  color: #1d4ed8;
+}
+
+.recent-list {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s;
+}
+
+.recent-item:last-child {
+  border-bottom: none;
+}
+
+.recent-item:hover {
+  background: #f9fafb;
+}
+
+.recent-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.recent-category-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.recent-category {
+  font-weight: 500;
+  color: #1f2937;
+  font-size: 0.875rem;
+}
+
+.reimbursable-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 0.625rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.recent-note {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 0.125rem;
+  line-height: 1.3;
+  text-transform: capitalize;
+}
+
+.recent-date {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.recent-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.recent-amount {
+  font-weight: 600;
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+}
+
+.recent-item .reimbursed-button {
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: bold;
+}
+
+.recent-item .reimbursed-button:hover {
+  background: #059669;
+  transform: scale(1.1);
+}
+
+.recent-item .reimbursed-button:active {
+  transform: scale(0.95);
+}
+
+.no-transactions {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.no-transactions p {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+  .recent-transactions {
+    padding: 0 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .recent-header h3 {
+    font-size: 1rem;
+  }
+
+  .recent-item {
+    padding: 0.875rem 1rem;
+  }
+
+  .recent-category {
+    font-size: 0.8125rem;
+  }
+
+  .recent-amount {
+    font-size: 0.8125rem;
+  }
+
+  .recent-right {
+    gap: 0.25rem;
+  }
+
+  .recent-item .reimbursed-button {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  .no-transactions {
+    padding: 1.5rem;
+  }
+}
