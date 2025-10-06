@@ -21,26 +21,30 @@ export interface ExpenseFormData {
 }
 
 export type ExpenseReason =
-  | 'Food & Dining'
+  | 'Household'
   | 'Transportation'
   | 'Shopping'
-  | 'Entertainment'
-  | 'Bills & Utilities'
-  | 'Healthcare'
-  | 'Education'
   | 'Travel'
-  | 'Other';
+  | 'Food/Drinks'
+  | 'Luxury'
+  | 'Miscellaneous'
+  | 'Bills'
+  | 'Investment'
+  | 'For someone'
+  | 'EMI';
 
 export const EXPENSE_REASONS: ExpenseReason[] = [
-  'Food & Dining',
+  'Household',
   'Transportation',
   'Shopping',
-  'Entertainment',
-  'Bills & Utilities',
-  'Healthcare',
-  'Education',
   'Travel',
-  'Other'
+  'Food/Drinks',
+  'Luxury',
+  'Miscellaneous',
+  'Bills',
+  'Investment',
+  'For someone',
+  'EMI'
 ];
 
 export interface Budget {
