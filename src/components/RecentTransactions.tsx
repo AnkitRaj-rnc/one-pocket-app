@@ -5,7 +5,6 @@ import './RecentTransactions.css';
 
 interface RecentTransactionsProps {
   expenses: Expense[];
-  // onDeleteExpense: (expenseId: string) => Promise<void>;
   onReimburseExpense: (expenseId: string) => Promise<void>;
 }
 
