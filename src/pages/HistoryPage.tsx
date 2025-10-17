@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { MonthlySummary } from '../types';
 import { apiService } from '../services/api';
 import { formatCurrency } from '../utils/helpers';
+import MonthlyComparisonChart from '../components/MonthlyComparisonChart';
 import './HistoryPage.css';
 
 export default function HistoryPage() {
@@ -84,6 +85,9 @@ export default function HistoryPage() {
           </select>
         </div>
 
+        {/* Monthly Comparison Chart - Show before month-specific data */}
+        <MonthlyComparisonChart months={6} />
+
         {isLoading ? (
           <div className="loading-state">
             <div className="loading-spinner"></div>
@@ -94,7 +98,15 @@ export default function HistoryPage() {
             {/* Total Spending Card */}
             <div className="summary-card total-card">
               <h2>Total Spent</h2>
-              <div className="total-amount">{formatCurrency(summary.totalSpent)}</div>
+              <div className="spending-row">
+                <div className="total-amount">{formatCurrency(summary.totalSpent)}</div>
+                {summary.totalReimbursable !== undefined && summary.totalReimbursable > 0 && (
+                  <div className="reimbursable-info">
+                    <span className="reimbursable-label">Reimbursable:</span>
+                    <span className="reimbursable-amount">{formatCurrency(summary.totalReimbursable)}</span>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Top Spending Categories */}

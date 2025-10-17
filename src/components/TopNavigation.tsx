@@ -4,7 +4,7 @@ import './TopNavigation.css';
 
 export default function TopNavigation() {
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <nav className="top-navigation">
@@ -48,9 +48,9 @@ export default function TopNavigation() {
 
           <div className="user-menu">
             <span className="user-name">{user?.username}</span>
-            <button onClick={logout} className="logout-button">
-              Logout
-            </button>
+            <Link to="/profile" className="profile-link">
+              Profile
+            </Link>
           </div>
         </div>
       </div>

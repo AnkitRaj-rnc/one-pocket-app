@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Expense, ExpenseFormData, Budget, BudgetFormData, MonthlySummary } from '../types';
+import type { Expense, ExpenseFormData, Budget, BudgetFormData, MonthlySummary, Category } from '../types';
 import { getTodayDateString } from '../utils/helpers';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -119,7 +119,7 @@ export class ApiService {
 
   async deleteExpense(expenseId: string): Promise<void> {
     try {
-      await this.makeRequest(`/expenses/${expenseId}`, {
+      await this.makeRequest(`/api/expenses/${expenseId}`, {
         method: 'DELETE'
       });
     } catch (error) {
@@ -127,6 +127,24 @@ export class ApiService {
     } finally {
       // Always remove from local storage regardless of API success/failure
       this.removeExpenseLocally(expenseId);
+    }
+  }
+
+  async reimburseExpense(expenseId: string): Promise<Expense> {
+    try {
+      const response = await this.makeRequest(`/api/expenses/${expenseId}/reimburse`, {
+        method: 'PUT'
+      });
+
+      // Handle API response structure - response has success and data fields
+      if (response.success && response.data) {
+        return response.data;
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Failed to mark expense as reimbursed:', error);
+      throw error;
     }
   }
 
@@ -287,6 +305,67 @@ export class ApiService {
     } catch (error) {
       console.error('Failed to fetch available months:', error);
       return [];
+    }
+  }
+
+  async getMonthlyComparison(months: number = 6): Promise<{ month: string; monthName: string; totalSpent: number }[]> {
+    if (!this.hasAuthToken()) {
+      return [];
+    }
+
+    try {
+      const response = await this.makeRequest(`/api/history/comparison?months=${months}`);
+      // Handle API response structure
+      if (response.success && response.data) {
+        return response.data;
+      }
+      return response || [];
+    } catch (error) {
+      console.error('Failed to fetch monthly comparison:', error);
+      return [];
+    }
+  }
+
+  // Category API methods
+  async getCategories(): Promise<Category[]> {
+    if (!this.hasAuthToken()) {
+      return [];
+    }
+
+    try {
+      const response = await this.makeRequest('/api/categories');
+      return response || [];
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+      return [];
+    }
+  }
+
+  async createCategory(name: string): Promise<Category> {
+    try {
+      const response = await this.makeRequest('/api/categories', {
+        method: 'POST',
+        body: JSON.stringify({ name })
+      });
+
+      if (response.success && response.data) {
+        return response.data;
+      }
+      return response;
+    } catch (error) {
+      console.error('Failed to create category:', error);
+      throw error;
+    }
+  }
+
+  async deleteCategory(categoryId: string): Promise<void> {
+    try {
+      await this.makeRequest(`/api/categories/${categoryId}`, {
+        method: 'DELETE'
+      });
+    } catch (error) {
+      console.error('Failed to delete category:', error);
+      throw error;
     }
   }
 }
