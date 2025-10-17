@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import type { ExpenseFormData, PaymentMethod } from '../types';
-import { EXPENSE_REASONS } from '../types';
+import { useCategories } from '../contexts/CategoryContext';
 import './ExpenseForm.css';
 
 interface ExpenseFormProps {
@@ -9,6 +9,7 @@ interface ExpenseFormProps {
 }
 
 export default function ExpenseForm({ onAddExpense, isLoading }: ExpenseFormProps) {
+  const { categories, isLoading: isCategoriesLoading } = useCategories();
   const [formData, setFormData] = useState<ExpenseFormData>({
     amount: '',
     reason: '',
@@ -92,6 +93,23 @@ export default function ExpenseForm({ onAddExpense, isLoading }: ExpenseFormProp
     }
   };
 
+  // Show message if no categories
+  if (!isCategoriesLoading && categories.length === 0) {
+    return (
+      <div className="expense-form-container">
+        <h1>Add Expense</h1>
+        <div className="no-categories-message">
+          <div className="message-icon">📁</div>
+          <h3>No Categories Found</h3>
+          <p>You need to add at least one category before you can create expenses.</p>
+          <a href="/categories" className="add-categories-link">
+            Go to Categories Page
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="expense-form-container">
       <h1>Add Expense</h1>
@@ -120,9 +138,9 @@ export default function ExpenseForm({ onAddExpense, isLoading }: ExpenseFormProp
             required
           >
             <option value="">Select a category</option>
-            {EXPENSE_REASONS.map(reason => (
-              <option key={reason} value={reason}>
-                {reason}
+            {categories.map(cat => (
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
               </option>
             ))}
           </select>

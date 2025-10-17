@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
 import type { Expense } from '../types';
-import { EXPENSE_REASONS } from '../types';
 import { formatCurrency, formatDate, groupExpensesByDate } from '../utils/helpers';
 import { getTotalSpending } from '../utils/analytics';
 import { apiService } from '../services/api';
+import { useCategories } from '../contexts/CategoryContext';
 import './ExpenseList.css';
 
 interface ExpenseListProps {
   expenses: Expense[];
   onDeleteExpense: (expenseId: string) => Promise<void>;
+  onReimburseExpense: (expenseId: string) => Promise<void>;
+  initialCategoryFilter?: string;
 }
 
-export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListProps) {
+export default function ExpenseList({ expenses, onDeleteExpense, onReimburseExpense, initialCategoryFilter = '' }: ExpenseListProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Expense[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [categoryFilter, setCategoryFilter] = useState<string>('');
+  const [categoryFilter, setCategoryFilter] = useState<string>(initialCategoryFilter);
+  const { categories } = useCategories();
 
   // Apply both search and category filter
   let displayExpenses = searchQuery.trim() ? searchResults : expenses;
@@ -62,9 +65,9 @@ export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListPr
   };
 
   const handleMarkReimbursed = async (expenseId: string) => {
-    if (window.confirm('Mark as reimbursed? This will remove the expense from your list.')) {
+    if (window.confirm('Mark as reimbursed? This will update the expense status.')) {
       try {
-        await onDeleteExpense(expenseId);
+        await onReimburseExpense(expenseId);
       } catch (error) {
         alert('Failed to mark as reimbursed. Please try again.');
       }
@@ -116,9 +119,9 @@ export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListPr
               className="category-filter-select"
             >
               <option value="">All Categories</option>
-              {EXPENSE_REASONS.map(reason => (
-                <option key={reason} value={reason}>
-                  {reason}
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.name}>
+                  {cat.name}
                 </option>
               ))}
             </select>

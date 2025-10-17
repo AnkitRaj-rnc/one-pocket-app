@@ -13,6 +13,46 @@
   text-align: center;
 }
 
+.no-categories-message {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.message-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.no-categories-message h3 {
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+}
+
+.no-categories-message p {
+  margin: 0 0 1.5rem 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.add-categories-link {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.add-categories-link:hover {
+  background: #1d4ed8;
+}
+
 .expense-form {
   display: flex;
   flex-direction: column;

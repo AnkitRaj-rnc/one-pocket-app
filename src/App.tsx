@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { CategoryProvider } from './contexts/CategoryContext';
 import { useExpenses } from './hooks/useExpenses';
 import AddExpensePage from './pages/AddExpensePage';
 import ExpenseListPage from './pages/ExpenseListPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import BudgetPage from './pages/BudgetPage';
 import HistoryPage from './pages/HistoryPage';
+import ProfilePage from './pages/ProfilePage';
 import BottomNavigation from './components/BottomNavigation';
 import TopNavigation from './components/TopNavigation';
 import LoginForm from './components/LoginForm';
@@ -20,10 +22,12 @@ function AppContent() {
   useEffect(() => {
     if (user) {
       apiService.setUserId(user.id);
+    } else {
+      apiService.setUserId(null);
     }
   }, [user]);
 
-  const { expenses, addExpense, deleteExpense, isLoading, isInitialLoading } = useExpenses();
+  const { expenses, addExpense, deleteExpense, reimburseExpense, isLoading, isInitialLoading } = useExpenses(user?.id || null);
 
   if (authLoading || isInitialLoading) {
     return (
@@ -47,11 +51,11 @@ function AppContent() {
         <Routes>
           <Route
             path="/"
-            element={<AddExpensePage onAddExpense={addExpense} isLoading={isLoading} expenses={expenses} onDeleteExpense={deleteExpense} />}
+            element={<AddExpensePage onAddExpense={addExpense} isLoading={isLoading} expenses={expenses} onDeleteExpense={deleteExpense} onReimburseExpense={reimburseExpense} />}
           />
           <Route
             path="/expenses"
-            element={<ExpenseListPage expenses={expenses} onDeleteExpense={deleteExpense} />}
+            element={<ExpenseListPage expenses={expenses} onDeleteExpense={deleteExpense} onReimburseExpense={reimburseExpense} />}
           />
           <Route
             path="/analytics"
@@ -65,6 +69,10 @@ function AppContent() {
             path="/history"
             element={<HistoryPage />}
           />
+          <Route
+            path="/profile"
+            element={<ProfilePage />}
+          />
         </Routes>
         <BottomNavigation />
       </div>
@@ -75,7 +83,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <CategoryProvider>
+        <AppContent />
+      </CategoryProvider>
     </AuthProvider>
   );
 }

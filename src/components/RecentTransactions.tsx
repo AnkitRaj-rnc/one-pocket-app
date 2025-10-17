@@ -6,9 +6,10 @@ import './RecentTransactions.css';
 interface RecentTransactionsProps {
   expenses: Expense[];
   onDeleteExpense: (expenseId: string) => Promise<void>;
+  onReimburseExpense: (expenseId: string) => Promise<void>;
 }
 
-export default function RecentTransactions({ expenses, onDeleteExpense }: RecentTransactionsProps) {
+export default function RecentTransactions({ expenses, onDeleteExpense, onReimburseExpense }: RecentTransactionsProps) {
   // Get 5 most recent expenses
   const recentExpenses = expenses
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -26,9 +27,9 @@ export default function RecentTransactions({ expenses, onDeleteExpense }: Recent
   }
 
   const handleMarkReimbursed = async (expenseId: string) => {
-    if (window.confirm('Mark as reimbursed? This will remove the expense from your list.')) {
+    if (window.confirm('Mark as reimbursed? This will update the expense status.')) {
       try {
-        await onDeleteExpense(expenseId);
+        await onReimburseExpense(expenseId);
       } catch (error) {
         alert('Failed to mark as reimbursed. Please try again.');
       }

@@ -9,6 +9,7 @@ export interface Expense {
   paymentMethod?: PaymentMethod; // Optional, defaults to 'upi'
   note?: string; // Optional comment/note about the expense
   reimbursable?: boolean; // Optional, marks expense as reimbursable (excluded from budget)
+  reimbursed?: boolean; // Optional, marks expense as already reimbursed
 }
 
 export interface ExpenseFormData {
@@ -20,20 +21,10 @@ export interface ExpenseFormData {
   reimbursable?: boolean; // Optional, marks expense as reimbursable
 }
 
-export type ExpenseReason =
-  | 'Household'
-  | 'Transportation'
-  | 'Shopping'
-  | 'Travel'
-  | 'Food/Drinks'
-  | 'Luxury'
-  | 'Miscellaneous'
-  | 'Bills'
-  | 'Investment'
-  | 'For someone'
-  | 'EMI';
+export type ExpenseReason = string; // Changed to string to support custom categories
 
-export const EXPENSE_REASONS: ExpenseReason[] = [
+// Default categories - used for new users or as fallback
+export const DEFAULT_EXPENSE_REASONS: string[] = [
   'Household',
   'Transportation',
   'Shopping',
@@ -46,6 +37,17 @@ export const EXPENSE_REASONS: ExpenseReason[] = [
   'For someone',
   'EMI'
 ];
+
+// Deprecated - kept for backwards compatibility
+export const EXPENSE_REASONS = DEFAULT_EXPENSE_REASONS;
+
+export interface Category {
+  id: string;
+  name: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface Budget {
   id: string;
@@ -89,6 +91,7 @@ export interface BudgetComparison {
 export interface MonthlySummary {
   month: string; // Format: "YYYY-MM"
   totalSpent: number;
+  totalReimbursable?: number; // Total amount of reimbursable expenses
   categoryBreakdown: CategorySpending[];
   budgetComparisons: BudgetComparison[];
 }

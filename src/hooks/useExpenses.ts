@@ -2,16 +2,25 @@ import { useState, useEffect } from 'react';
 import type { Expense, ExpenseFormData } from '../types';
 import { apiService } from '../services/api';
 
-export function useExpenses() {
+export function useExpenses(userId: string | null) {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   useEffect(() => {
+    // Clear expenses if no user
+    if (!userId) {
+      setExpenses([]);
+      setIsInitialLoading(false);
+      return;
+    }
+
+    // Load expenses when user changes
     loadExpenses();
-  }, []);
+  }, [userId]); // Re-run when userId changes
 
   const loadExpenses = async () => {
+    setIsInitialLoading(true);
     try {
       const data = await apiService.getExpenses();
       setExpenses(data);
@@ -45,10 +54,22 @@ export function useExpenses() {
     }
   };
 
+  const reimburseExpense = async (expenseId: string) => {
+    try {
+      await apiService.reimburseExpense(expenseId);
+      // Remove the reimbursed expense from the local state
+      setExpenses(prev => prev.filter(expense => expense.id !== expenseId));
+    } catch (error) {
+      console.error('Failed to reimburse expense:', error);
+      throw error;
+    }
+  };
+
   return {
     expenses,
     addExpense,
     deleteExpense,
+    reimburseExpense,
     isLoading,
     isInitialLoading
   };

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import type { CategoryData } from '../utils/analytics';
 import { formatCurrency } from '../utils/helpers';
@@ -9,6 +10,8 @@ interface ExpensePieChartProps {
 }
 
 export default function ExpensePieChart({ data }: ExpensePieChartProps) {
+  const navigate = useNavigate();
+
   if (data.length === 0) {
     return (
       <div className="pie-chart-container">
@@ -19,6 +22,10 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
       </div>
     );
   }
+
+  const handleCategoryClick = (category: string) => {
+    navigate(`/expenses?category=${encodeURIComponent(category)}`);
+  };
 
   const customTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -65,7 +72,12 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
 
       <div className="chart-legend">
         {data.map((entry) => (
-          <div key={entry.category} className="legend-item">
+          <div
+            key={entry.category}
+            className="legend-item"
+            onClick={() => handleCategoryClick(entry.category)}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="legend-header">
               <div className="legend-title-section">
                 <div className="legend-title-row">

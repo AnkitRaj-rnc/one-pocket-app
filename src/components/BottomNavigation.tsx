@@ -1,10 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import './BottomNavigation.css';
 
 export default function BottomNavigation() {
   const location = useLocation();
-  const { logout } = useAuth();
 
   return (
     <nav className="bottom-navigation">
@@ -48,13 +46,13 @@ export default function BottomNavigation() {
         <span className="nav-label">History</span>
       </Link>
 
-      <button
-        onClick={logout}
-        className="nav-item logout-nav-item"
+      <Link
+        to="/profile"
+        className={`nav-item ${location.pathname === '/profile' ? 'active' : ''}`}
       >
-        <div className="nav-icon">🚪</div>
-        <span className="nav-label">Logout</span>
-      </button>
+        <div className="nav-icon">👤</div>
+        <span className="nav-label">Profile</span>
+      </Link>
     </nav>
   );
 }
