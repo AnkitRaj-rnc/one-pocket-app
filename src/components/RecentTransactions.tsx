@@ -5,11 +5,11 @@ import './RecentTransactions.css';
 
 interface RecentTransactionsProps {
   expenses: Expense[];
-  onDeleteExpense: (expenseId: string) => Promise<void>;
+  // onDeleteExpense: (expenseId: string) => Promise<void>;
   onReimburseExpense: (expenseId: string) => Promise<void>;
 }
 
-export default function RecentTransactions({ expenses, onDeleteExpense, onReimburseExpense }: RecentTransactionsProps) {
+export default function RecentTransactions({ expenses, onReimburseExpense }: RecentTransactionsProps) {
   // Get 5 most recent expenses
   const recentExpenses = expenses
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
