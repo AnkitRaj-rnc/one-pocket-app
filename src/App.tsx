@@ -51,7 +51,7 @@ function AppContent() {
         <Routes>
           <Route
             path="/"
-            element={<AddExpensePage onAddExpense={addExpense} isLoading={isLoading} expenses={expenses} onDeleteExpense={deleteExpense} onReimburseExpense={reimburseExpense} />}
+            element={<AddExpensePage onAddExpense={addExpense} isLoading={isLoading} expenses={expenses} onReimburseExpense={reimburseExpense} />}
           />
           <Route
             path="/expenses"
